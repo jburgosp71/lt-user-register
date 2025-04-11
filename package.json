@@ -1,0 +1,39 @@
+{
+  "name": "nestjs-app",
+  "version": "1.0.0",
+  "description": "User registration module with email and DB support",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:prod": "node dist/main.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^2.2.0",
+    "@nestjs/core": "^9.0.0",
+    "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/typeorm": "^9.0.0",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.2",
+    "mysql2": "^3.6.0",
+    "nodemailer": "^6.9.8",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.8.1",
+    "typeorm": "^0.3.12"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^9.0.0",
+    "@nestjs/testing": "^9.0.0",
+    "@types/jest": "^28.1.8",
+    "@types/nodemailer": "^6.4.17",
+    "jest": "^28.1.3",
+    "ts-jest": "^28.0.8",
+    "tsconfig-paths": "^3.14.2",
+    "typescript": "^5.3.3"
+  }
+}
