@@ -46,7 +46,6 @@ describe('UserService', () => {
 
     describe('registerUser', () => {
         it('should return a success message when user is successfully registered', async () => {
-            // Arrange
             const dto: UserRegisterDto = {
                 EMAIL: 'test@example.com',
                 NAME: 'Test User',
@@ -59,14 +58,12 @@ describe('UserService', () => {
                 createdAt: new Date(),
             };
 
-            mockUserRepo.findByEmail = jest.fn().mockResolvedValue(null); // No existe el usuario
+            mockUserRepo.findByEmail = jest.fn().mockResolvedValue(null);
             mockUserRepo.createUser = jest.fn().mockResolvedValue(userMock);
-            mockMailSender.sendWelcomeEmail = jest.fn().mockResolvedValue(undefined); // Mail enviado con éxito
+            mockMailSender.sendWelcomeEmail = jest.fn().mockResolvedValue(undefined);
 
-            // Act
             const result: UserRegisterResponseDto = await service.registerUser(dto);
 
-            // Assert
             expect(result.message).toBe('User registered successfully');
             expect(result.id).toBe(userMock.id);
             expect(result.createdAt).toBe(userMock.createdAt);
@@ -76,7 +73,6 @@ describe('UserService', () => {
         });
 
         it('should return a message when user already exists', async () => {
-            // Arrange
             const dto: UserRegisterDto = {
                 EMAIL: 'test@example.com',
                 NAME: 'Test User',
@@ -89,12 +85,10 @@ describe('UserService', () => {
                 createdAt: new Date(),
             };
 
-            mockUserRepo.findByEmail = jest.fn().mockResolvedValue(existingUser); // Usuario ya existe
+            mockUserRepo.findByEmail = jest.fn().mockResolvedValue(existingUser);
 
-            // Act
             const result: UserRegisterResponseDto = await service.registerUser(dto);
 
-            // Assert
             expect(result.message).toBe('User already exists');
             expect(result.id).toBe(existingUser.id);
             expect(result.createdAt).toBe(existingUser.createdAt);
@@ -103,7 +97,6 @@ describe('UserService', () => {
         });
 
         it('should throw DbException when database operation fails', async () => {
-            // Arrange
             const dto: UserRegisterDto = {
                 EMAIL: 'test@example.com',
                 NAME: 'Test User',
@@ -111,12 +104,10 @@ describe('UserService', () => {
 
             mockUserRepo.findByEmail = jest.fn().mockRejectedValue(new Error('Database error'));
 
-            // Act & Assert
             await expect(service.registerUser(dto)).rejects.toThrow(DbException);
         });
 
         it('should throw MailException when email sending fails', async () => {
-            // Arrange
             const dto: UserRegisterDto = {
                 EMAIL: 'test@example.com',
                 NAME: 'Test User',
@@ -129,11 +120,10 @@ describe('UserService', () => {
                 createdAt: new Date(),
             };
 
-            mockUserRepo.findByEmail = jest.fn().mockResolvedValue(null); // No existe el usuario
+            mockUserRepo.findByEmail = jest.fn().mockResolvedValue(null);
             mockUserRepo.createUser = jest.fn().mockResolvedValue(userMock);
             mockMailSender.sendWelcomeEmail = jest.fn().mockRejectedValue(new Error('Mail error'));
 
-            // Act & Assert
             await expect(service.registerUser(dto)).rejects.toThrow(MailException);
         });
     });

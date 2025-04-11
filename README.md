@@ -26,4 +26,20 @@ Registers the user (if it doesn't exist) and returns the database id
 TODO
 
 - Quedaría pendiente la lógica de las colas en el UserService para hacer más eficiente la inserción de usuarios y el envío de email
-- 
+
+DEPENDENCIAS
+
+- En el package.json se han incluido las dependencias utilizadas
+
+CONTAINER
+
+- Se incluye Dockerfile y docker-compose para poder testearlo desde dentro del contenedor:
+- Para arrancar el contenedor:
+````
+docker-compose up --build
+````
+
+- Para ejecutar los tests:
+````
+  docker exec -it nestjs-app sh -c "npm run test"
+````

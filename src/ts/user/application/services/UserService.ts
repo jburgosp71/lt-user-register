@@ -29,18 +29,6 @@ export class UserService implements RegisterUserUseCase {
 
             user = await this.userRepo.createUser(dto.NAME, dto.EMAIL);
 
-            /*try {
-                await this.mailSender.sendWelcomeEmail(user.email, user.name);
-            } catch(mailError) {
-                throw new MailException('Failed to send welcome email');
-            }
-
-            return {
-                id: user.id,
-                message: 'User registered successfully',
-                createdAt: user.createdAt,
-            };*/
-
         } catch (dbError) {
             throw new DbException('Database operation failed');
         }
